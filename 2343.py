@@ -1,35 +1,38 @@
 def main():
     qtd_registros = int(input())
     registros = []
-    
+
     n_linhas = 0
     n_colunas = 0
+
+    for index_registro in range(qtd_registros):
+        cood_x, cood_y = map(int, input().split())
     
-    for i in range(qtd_registros):
-        #coordenadas x,y em que cairam um raio
-        x, y = map(int, input().split())
-    
-        if x > n_linhas:
-            n_linhas = x 
-        
-        if y > n_colunas:
-            n_colunas = y
-        #salva as coordenadas do raio nos registros
-        registros.append((x,y))
-    #rst é o resultado. 1 se cair algum raio no mesmo lugar e 0 se não
+        if cood_x > n_linhas:
+            n_linhas = cood_x
+
+        if cood_y > n_colunas:
+            n_colunas = cood_y
+
+        registros.append((cood_x, cood_y))
+
+    matriz = cria_matriz(n_linhas + 1, n_colunas + 1)
     rst = 0
-    matriz = []
-    #criação da matriz com os valores de n_colunas e n_linhas para determinar o tamanho da matriz 
-    for x in range(n_linhas + 1):
-        matriz = matriz + [[0] * (n_colunas + 1)]
-    #preenchimento da matriz com os valores salvos nos registros
-    for x in registros:
-        matriz[x[0]][x[1]] += 1
-        if matriz[x[0]][x[1]] > 1:
+
+    for cood in registros:
+        cood_x, cood_y = cood
+        matriz[cood_x][cood_y] += 1
+        if matriz[cood_x][cood_y] > 1:
             rst = 1
             break
-    
+
     print(rst)
+
+def cria_matriz(n_linhas, n_colunas):
+    matriz = []
+    for x in range(n_linhas):        
+        matriz += [[0] * (n_colunas)]
+    return matriz
 
 if __name__ == '__main__':
     main()
